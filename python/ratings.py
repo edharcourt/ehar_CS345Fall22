@@ -1,4 +1,5 @@
 import psycopg2
+from psycopg2.extensions import connection
 from tabulate import tabulate
 
 def connect_ratings():
@@ -46,12 +47,27 @@ def menu():
 
     return opt
 
+def lookup_title(conn:connection) -> None:
+    print ("lookup book by title")
+
+def lookup_title1(conn:connection) -> None:
+    def f():
+        print("lookup title")
+    return f
+
 # if this file is being run as a program and *not* imported
 # as a module
 if __name__ == "__main__":
 
     conn = connect_ratings()
 
-    opt = menu()
+    opt_map = { '1' : lookup_title}
+    opt_map1 = { '1' : lookup_title1(conn)}
+
+    while True:
+        opt = menu()
+        if opt.lower() == 'q': break
+        #opt_map[opt](conn)
+        opt_map1[opt]()
 
     # next class
