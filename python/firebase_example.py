@@ -10,9 +10,40 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 students = db.collection(u'students')
-docs = students.stream()
 
+# READ: Read some students
+"""
+docs = students.stream()
 for doc in docs:
     print(f'{doc.id} => {doc.to_dict()}')
+"""
+
+# CREATE: insert data about Ron
+"""
+doc = students.document(u'student3')
+doc.set(
+    {
+        "courses" : [{"coursenum" : "H101",
+                      "title" : "Herbology",
+                      "semester" : "Spring",
+                      "year" : 2009},
+
+                     {"coursenum" : "C101",
+                      "title" : "Charms",
+                      "semester" : "Spring",
+                      "year" : 2008}],
+        "name" : {"first" : "Ron", "last" : "Weasley"}
+    }
+)
+"""
+
+# Update a document
+"""
+doc = students.document(u'student3')
+doc.update({u'name.first' : u'Ronald'})
+"""
+
+# DELETE
+students.document(u'student3').delete()
 
 print("Done")
