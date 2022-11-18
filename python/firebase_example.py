@@ -6,7 +6,6 @@ from firebase_admin import firestore
 
 cred = credentials.Certificate("cs345fall22-firebase-adminsdk-3ivaa-67f327fcdb.json")
 firebase_admin.initialize_app(cred)
-
 db = firestore.client()
 
 students = db.collection(u'students')
